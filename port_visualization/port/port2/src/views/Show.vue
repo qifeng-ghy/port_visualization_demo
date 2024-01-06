@@ -73,17 +73,17 @@
 
 <style scoped>
 
-@import url(../css/common.css);
-@import url(../css/map.css);
+@import url(../assets/css/common.css);
+@import url(../assets/css/map.css);
 
 </style>
 
 <script>
 // @ is an alias to /src
-// import * as echarts from 'echarts';
+import * as echarts from 'echarts';
 // import {Allcharts} from "../js/echarts.js";
 // import * as china from "../js/china.js";
-import $ from 'jquery';
+import centerMap from '@/assets/js/echartmap'
 // import jquery from 'jquery';、
 
 
@@ -104,7 +104,7 @@ export default {
 
   },
   mounted(){
-    Allcharts();
+    this.chart_map=centerMap('echarts_map');
   },
   methods:{
     initChart(){
