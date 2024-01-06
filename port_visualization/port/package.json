@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "echarts": "^5.4.3",
+    "element-ui": "^2.15.14",
+    "jquery": "^3.7.1",
+    "jQuery": "^1.7.4"
+  }
+}
