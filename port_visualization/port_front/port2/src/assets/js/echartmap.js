@@ -9,16 +9,82 @@ export default function centerMap(containerId){
       return null;  
     }  
     const chart = echarts.init(chartContainer,chalk);  
+    // const chart = echarts.init(chartContainer);  
     // var myChart = echarts.init(document.getElementById('main'),'chalk');
     var data = [//绘制起点到终点的流线
-         {name: '广州', value: '北京'},
-         {name: '青岛', value: '南通'},
-         {name: '广州', value: '南京'},
-         {name: '广州', value: '成都'},
-         {name: '广州', value: '宜宾'},
-         {name: '广州', value: '荆州'},
-         {name: '广州', value: '西安'},
-         {name: '厦门', value: '攀枝花'},
+        //  {name: '广州', value: '北京'},
+        //  {name: '青岛', value: '南通'},
+        //  {name: '广州', value: '南京'},
+        //  {name: '广州', value: '成都'},
+        //  {name: '广州', value: '宜宾'},
+        //  {name: '广州', value: '荆州'},
+        //  {name: '广州', value: '西安'},
+        //  {name: '厦门', value: '攀枝花'},
+         {name:'厦门',value:null},
+         {name:'青岛',value:null},
+         {name: '秦皇岛', value: null},
+         {name: '泉州', value:null},
+         {name: '上海',value:null},
+         {name: '镇江',value:null},
+         {name: '南京',value:null},
+         {name: '张家港',value:null},
+         {name: '舟山',value:null},
+         {name: '扬州',value:null},
+         {name: '天津',value:null},
+         {name: '锦州',value:null},
+         {name: '岚山',value:null},
+         {name: '靖江',value:null},
+         {name: '宁波',value:null},
+         {name: '连云港',value:null},
+         {name: '唐山',value:null},
+         {name: '常州',value:null},
+         {name: '新会',value:null},
+         {name: '台州',value:null},
+         {name: '太仓',value:null},
+         {name: '烟台',value:null},
+         {name: '黄花',value:null},
+         {name: '长江口',value:null},
+         {name: '中山',value:null},
+         {name: '大连',value:null},
+         {name: '日照',value:null},
+         {name: '钦州',value:null},
+         {name: '龙口',value:null},
+         {name: '东莞',value:null},
+         {name: '温州',value:null},
+         {name: '南通',value:null},
+         {name: '惠州',value:null},
+         {name: '洋浦',value:null},
+         {name: '乍浦',value:null},
+         {name: '马迹山',value:null},
+         {name: '涪陵',value:null},
+         {name: '南山',value:null},
+         {name: '常熟',value:null},
+         {name: '高港',value:null},
+         {name: '宁德',value:null},
+         {name: '威海',value:null},
+         {name: '京唐',value:null},
+         {name: '六横',value:null},
+         {name: '铜陵',value:null},  
+         {name: '宜宾',value:null}, 
+         {name: '泸州',value:null},
+         {name: '湄洲岛',value:null},  
+         {name: '漳州',value:null},   
+         {name: '北海',value:null},  
+         {name: '重庆',value:null},      
+         {name: '珠江',value:null},  
+         {name: '潍坊',value:null},  
+         {name: '珠海',value:null},  
+         {name: '龙海',value:null},  
+         {name: '仪征',value:null},  
+         {name: '东营',value:null},  
+         {name: '罗源',value:null},  
+         {name: '三亚',value:null},  
+         {name: '深圳',value:null},  
+         {name: '海口',value:null},  
+         {name: '福州',value:null},  
+         {name: '蓬莱',value:null},  
+         {name: '滨州',value:null},  
+         {name: '丽江',value:null},  
     ];
     //这里记录每个城市的坐标信息（不全）
     var geoCoordMap = {
@@ -123,7 +189,7 @@ export default function centerMap(containerId){
     '阳江':[111.95,21.85],
     '泸州':[105.39,28.91],
     '西宁':[101.74,36.56],
-    '宜宾':[104.56,29.77],
+    '宜宾':[104.56,29.05],
     '呼和浩特':[111.65,40.82],
     '成都':[104.06,30.67],
     '大同':[113.3,40.12],
@@ -211,7 +277,10 @@ export default function centerMap(containerId){
     '菏泽':[115.480656,35.23375],
     '合肥':[117.27,31.86],
     '武汉':[114.31,30.52],
-    '大庆':[125.03,46.58]
+    '大庆':[125.03,46.58],
+    '江阴':[120.26,31.91],
+    '丽江':[100.47,26.83],
+    '涪陵':[106.93,29,60],
     };
     //根据data得到每个data中城市的坐标
     var convertData = function (data) {
@@ -269,6 +338,8 @@ export default function centerMap(containerId){
     tooltip : {
         trigger: 'item'
     },
+
+
     geo: {
         map: 'china',
         label: {
@@ -297,7 +368,7 @@ export default function centerMap(containerId){
                     color: '#fff'
                   }
                 }
-              }
+            }
         }
     },
     //series就是要绘制的地图的主体。是一个数组，也就是说可以有多个数据进行绘制。这里有两个，一个是两个城市的连线，一个是对两个城市进行高亮显示。其中的type是很重要的参数，主要有饼图、条形图、线、地图等等。具体的可以去参考官网上的配置手册。
@@ -349,6 +420,9 @@ export default function centerMap(containerId){
     ]
     });
     // 使用刚指定的配置项和数据显示图表。
+
+
+    console.log(chart);
     return chart;
 
 }

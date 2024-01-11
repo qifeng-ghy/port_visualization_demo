@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="con-center fl">
-                    <div class="map-num">
+                    <!-- <div class="map-num">
                         <p>实时行驶车辆(辆)</p>
                         <div class="num" style="padding-left: 1px;">
                             <span>1</span>
@@ -43,7 +43,7 @@
                             <span>6</span>
                             <span>7</span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="cen-top" id="map">
                         <div id="echarts_map" class="charts"></div>
                     </div>
@@ -84,6 +84,9 @@ import * as echarts from 'echarts';
 // import {Allcharts} from "../js/echarts.js";
 // import * as china from "../js/china.js";
 import centerMap from '@/assets/js/echartmap'
+import chart1 from '@/assets/js/echart_1'
+import chart2 from '@/assets/js/echart_2'
+import chart3 from '@/assets/js/echart_3'
 // import jquery from 'jquery';、
 
 
@@ -105,12 +108,11 @@ export default {
   },
   mounted(){
     this.chart_map=centerMap('echarts_map');
+    this.chart_1=chart1('echarts_1');
+    this.chart_2=chart2('echarts_2');
+    this.chart_3=chart3('echarts_3');
   },
   methods:{
-    initChart(){
-        // echarts.charts_1();
-
-    },
 
   },
 

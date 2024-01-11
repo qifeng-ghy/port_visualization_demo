@@ -32,6 +32,59 @@ app.get('/helloworld', (req, res) => {
     res.send('Hello from Node.js backend!');
 });
 
+app.get('/huanghai',(req,res)=>{
+    const huanghai=[
+        {name:'连云港',value:23},
+        {name:'南通',value:23},
+        {name:'日照',value:23},
+        {name:'青岛',value:23},
+        {name:'张家港',value:23},
+    ];
+    res.send(huanghai);
+});
+
+app.get('/donghai',(req,res)=>{
+    const donghai=[
+        {name:'上海',value:23},
+        {name:'宁波',value:23},
+        {name:'台州',value:23},
+        {name:'舟山',value:23},
+        {name:'温州',value:23},
+    ];
+    res.send(donghai);
+});
+
+app.get('/bohai',(req,res)=>{
+    const bohai=[
+        {name:'秦皇岛',value:23},
+        {name:'唐山',value:23},
+        {name:'天津',value:23},
+        {name:'大连',value:23},
+        {name:'威海',value:23},
+    ];
+    res.send(bohai);
+});
+app.get('/nanhai',(req,res)=>{
+    const nanhai=[
+        {name:'防城港',value:23},
+        {name:'广州',value:23},
+        {name:'三亚',value:23},
+        {name:'海口',value:23},
+        {name:'深圳',value:23},
+    ];
+    res.send(nanhai);
+});
+app.get('/land',(req,res)=>{
+    const land=[
+        {name:'重庆',value:23},
+        {name:'宜宾',value:23},
+        {name:'泸州',value:23},
+        {name:'南京',value:23},
+        {name:'镇江',value:23},
+        {name:'扬州',value:24}
+    ];
+    res.send(land);
+});
 // 启动服务器
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
