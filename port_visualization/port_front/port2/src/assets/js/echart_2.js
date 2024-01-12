@@ -1,74 +1,94 @@
 import * as echarts from 'echarts';
 // import * as chalk from '@/assets/js'
-import * as axios from 'axios';
+// import * as axios from 'axios';
+import axios from 'axios';
 import * as ownset2 from '@/assets/js/ownset2'
 
-export default function echart1(containerId){
+export default async function echart2(containerId){
     const chartContainer = document.getElementById(containerId);  
+    let result=await getPort();
+    console.log(result);
     if (!chartContainer) {  
       console.error(`Chart container with id ${containerId} not found.`);  
       return null;  
     }  
     const chart2 = echarts.init(chartContainer,ownset2);  
-    var series = [
-        {
-            data: [5700, 5200, 4977, 4820, 4770],
-            type: 'bar',
-            stack: 'a',
-            name: 'a'
-        }
-    ];
-    const stackInfo = {};
-    for (let i = 0; i < series[0].data.length; ++i) {
-        for (let j = 0; j < series.length; ++j) {
-            const stackName = series[j].stack;
-            if (!stackName) {
-            continue;
-            }
-            if (!stackInfo[stackName]) {
-            stackInfo[stackName] = {
-                stackStart: [],
-                stackEnd: []
-            };
-            }
-            const info = stackInfo[stackName];
-            const data = series[j].data[i];
-            if (data && data !== '-') {
-            if (info.stackStart[i] == null) {
-                info.stackStart[i] = j;
-            }
-            info.stackEnd[i] = j;
-            }
-        }
+    var category=[];
+    var barData=[];
+    for(var i=0;i<5;i++){
+      category.push(result[i].tName);
+      barData.push(result[i].tAmount);
     }
-    for (let i = 0; i < series.length; ++i) {
-    const data = series[i].data;
-    const info = stackInfo[series[i].stack];
-        for (let j = 0; j < series[i].data.length; ++j) {
-            // const isStart = info.stackStart[j] === i;
-            const isEnd = info.stackEnd[j] === i;
-            const topBorder = isEnd ? 130 : 0;
-            const bottomBorder = 0;
-            data[j] = {
-            value: data[j],
-            itemStyle: {
-                borderRadius: [topBorder, topBorder, bottomBorder, bottomBorder]
-            }
-            };
-        }
-    }
-
+    // // Generate data
+    // let category = ['上海', '南通', '南京', '广州', '厦门'];
+    
+    // // let lineData = [];
+    // let barData = [5100, 4982, 3327, 3090, 2936];
+    // let barData=result;
+    
+    // option
     chart2.setOption({
-        xAxis: {
-            type: 'category',
-            data: ['上海', '广州', '厦门', '宁波', '天津']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: series,
-
+      backgroundColor: 'transparent',
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: ['line', 'bar'],
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      grid:{
+        right: 10,
+      },
+      xAxis: {
+        data:category ,
+        axisLine: {
+          lineStyle: {
+            color: '#ccc'
+          }
+        }
+      },
+      yAxis: {
+        splitLine: { show: false },
+        axisLine: {
+          lineStyle: {
+            color: '#ccc'
+          }
+        }
+      },
+      series: [
+        {
+          name: '流量',
+          type: 'bar',
+          barWidth: 20,
+          data: [],
+          itemStyle: {
+            borderRadius: 10,
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#14c8d4' },
+              { offset: 1, color: '#43eec6' }
+            ])
+          },
+          data: barData
+        }
+      ]
     });
-
     return chart2;
+}
+
+
+async function getPort() {       
+    var url = `http://localhost:3000/getPort`;  // url获取某个港口信息   
+    try {    
+      const response = await axios.get(url);    
+      console.log('数据发送成功！', response);     
+      console.log(response.data.length);    
+      return response.data;     
+    } catch (error) {      
+        console.error('发送数据时出现错误：', error);      
+    }    
 }

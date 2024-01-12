@@ -1,8 +1,9 @@
 import * as echarts from 'echarts'; 
 import * as chalk from '@/assets/js/chalk.js'
 import * as china from '@/assets/js/china.js'
+import axios from 'axios';
 
-export default function centerMap(containerId){
+export default async function centerMap(containerId,portName,portLoc,portAmount,portBalance){
     const chartContainer = document.getElementById(containerId);  
     if (!chartContainer) {  
       console.error(`Chart container with id ${containerId} not found.`);  
@@ -12,14 +13,7 @@ export default function centerMap(containerId){
     // const chart = echarts.init(chartContainer);  
     // var myChart = echarts.init(document.getElementById('main'),'chalk');
     var data = [//绘制起点到终点的流线
-        //  {name: '广州', value: '北京'},
-        //  {name: '青岛', value: '南通'},
-        //  {name: '广州', value: '南京'},
-        //  {name: '广州', value: '成都'},
-        //  {name: '广州', value: '宜宾'},
-        //  {name: '广州', value: '荆州'},
-        //  {name: '广州', value: '西安'},
-        //  {name: '厦门', value: '攀枝花'},
+        // 例 {name: '广州', value: '北京'},
          {name:'厦门',value:null},
          {name:'青岛',value:null},
          {name: '秦皇岛', value: null},
@@ -36,7 +30,7 @@ export default function centerMap(containerId){
          {name: '靖江',value:null},
          {name: '宁波',value:null},
          {name: '连云港',value:null},
-         {name: '唐山',value:null},
+         {name: '曹妃甸',value:null},
          {name: '常州',value:null},
          {name: '新会',value:null},
          {name: '台州',value:null},
@@ -65,8 +59,6 @@ export default function centerMap(containerId){
          {name: '京唐',value:null},
          {name: '六横',value:null},
          {name: '铜陵',value:null},  
-         {name: '宜宾',value:null}, 
-         {name: '泸州',value:null},
          {name: '湄洲岛',value:null},  
          {name: '漳州',value:null},   
          {name: '北海',value:null},  
@@ -79,7 +71,8 @@ export default function centerMap(containerId){
          {name: '东营',value:null},  
          {name: '罗源',value:null},  
          {name: '三亚',value:null},  
-         {name: '深圳',value:null},  
+         {name: '深圳',value:null}, 
+         {name: '广州',value:null}, 
          {name: '海口',value:null},  
          {name: '福州',value:null},  
          {name: '蓬莱',value:null},  
@@ -281,6 +274,10 @@ export default function centerMap(containerId){
     '江阴':[120.26,31.91],
     '丽江':[100.47,26.83],
     '涪陵':[106.93,29,60],
+    '湄洲岛':[119.13,25.09],
+    '长江口':[121,22,31.09],
+    '曹妃甸':[118.38,39.13],
+    '黄花':[117.52,38.19]
     };
     //根据data得到每个data中城市的坐标
     var convertData = function (data) {
@@ -421,8 +418,47 @@ export default function centerMap(containerId){
     });
     // 使用刚指定的配置项和数据显示图表。
 
+    chart.on('mouseover',async function (params) {  
+        var name=null;
+        let result;
+        for(var i=0;i<data.length;i++){
+            if(params.name==data[i].name){
+                var name = params.name; // 鼠标移动到的区域名称，例如"北京"或"上海"等。 
+            }
+        }
+        if(name!=null){
+            result=await findPort(name);
+            console.log(result);
+            document.getElementById(portName).innerText = '港口名称：' + name; // 在div中显示数据。
+            document.getElementById(portLoc).innerText = '港口所处位置:' + result.tLocaltion;
+            document.getElementById(portAmount).innerText = '港口流量:' + result.tAmount;
+            document.getElementById(portBalance).innerText = '港口流入流出差值:'+result.tBalance;
+        }
+        else{
+            document.getElementById(portName).innerText = '港口名称：' +'------'; //若鼠标移到省份时，则不显示相关数据
+            document.getElementById(portLoc).innerText = '港口所处位置:' + '------';
+            document.getElementById(portAmount).innerText = '港口流量:' + '------';
+            document.getElementById(portBalance).innerText = '港口流入流出差值:'+ '------';
+        }
+        // var data = params.data; // 该区域的数据，具体内容取决于你的数据格式。这里只是一个示例。  
 
+    });
     console.log(chart);
     return chart;
 
+}
+
+
+async function findPort(portName) {      
+    console.log('portname='+portName); 
+    var url = `http://localhost:3000/findPort?portName=${portName}`;  // url    
+    try {    
+      const response = await axios.get(url);    
+      console.log('数据发送成功！', response);     
+      console.log(response.data.length);  
+      console.log(response.data);  
+      return response.data[0];     
+    } catch (error) {      
+        console.error('发送数据时出现错误：', error);      
+    }    
 }

@@ -1,0 +1,6 @@
+#portName,#portAmount,#portLoc,#portBalance{
+    color: aqua;
+    line-height: 50px;
+    font-size: 10px;
+    /* text-indent: 100px; */
+}

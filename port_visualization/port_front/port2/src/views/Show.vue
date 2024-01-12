@@ -16,7 +16,42 @@
                             <img src="../img/bj-3.png" alt="" class="bj-3">
                             <img src="../img/bj-4.png" alt="" class="bj-4">
                             <div class="info-main">
-                                
+                                <!-- <div id="portName" style="color: white;"></div>
+                                <div id="portLoc"></div>
+                                <div id="portAmount"></div>
+                                <div id="portBalance"></div> -->
+                                <div class="info-1">
+                                    <div class="info-img fl">
+                                        <img src="../img/港口1.png" alt="">
+                                    </div>
+                                    <div class="info-text fl">
+                                        <div id="portName"></div>
+                                    </div>
+                                </div>
+                                <div class="info-2">
+                                    <div class="info-img fl">
+                                        <img src="../img/港口2.png" alt="">
+                                    </div>
+                                    <div class="info-text fl">
+                                        <div id="portLoc"></div>
+                                    </div>
+                                </div>
+                                <div class="info-3">
+                                    <div class="info-img fl">
+                                        <img src="../img/港口3.png" alt="">
+                                    </div>
+                                    <div class="info-text fl">
+                                        <div id="portAmount"></div>
+                                    </div>
+                                </div>
+                                <div class="info-4">
+                                    <div class="info-img fl">
+                                        <img src="../img/港口4.png" alt="">
+                                    </div>
+                                    <div class="info-text fl">
+                                        <div id="portBalance"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -30,20 +65,6 @@
                     </div>
                 </div>
                 <div class="con-center fl">
-                    <!-- <div class="map-num">
-                        <p>实时行驶车辆(辆)</p>
-                        <div class="num" style="padding-left: 1px;">
-                            <span>1</span>
-                            <span>,</span>
-                            <span>2</span>
-                            <span>3</span>
-                            <span>4</span>
-                            <span>,</span>
-                            <span>5</span>
-                            <span>6</span>
-                            <span>7</span>
-                        </div>
-                    </div> -->
                     <div class="cen-top" id="map">
                         <div id="echarts_map" class="charts"></div>
                     </div>
@@ -75,6 +96,8 @@
 
 @import url(../assets/css/common.css);
 @import url(../assets/css/map.css);
+@import url(../assets/css/box.css);
+
 
 </style>
 
@@ -107,7 +130,7 @@ export default {
 
   },
   mounted(){
-    this.chart_map=centerMap('echarts_map');
+    this.chart_map=centerMap('echarts_map','portName','portLoc','portAmount','portBalance');
     this.chart_1=chart1('echarts_1');
     this.chart_2=chart2('echarts_2');
     this.chart_3=chart3('echarts_3');
