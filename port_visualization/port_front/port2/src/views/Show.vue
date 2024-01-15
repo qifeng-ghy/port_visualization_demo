@@ -25,6 +25,7 @@
                                         <img src="../img/港口1.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portName1">港口名称:</div><br> -->
                                         <div id="portName"></div>
                                     </div>
                                 </div>
@@ -33,6 +34,7 @@
                                         <img src="../img/港口2.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portLoc1">港口位置:</div><br> -->
                                         <div id="portLoc"></div>
                                     </div>
                                 </div>
@@ -41,6 +43,7 @@
                                         <img src="../img/港口3.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portAmount1">港口数量：</div><br> -->
                                         <div id="portAmount"></div>
                                     </div>
                                 </div>
@@ -49,6 +52,7 @@
                                         <img src="../img/港口4.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portBalance1">港口流入流出差值：</div><br> -->
                                         <div id="portBalance"></div>
                                     </div>
                                 </div>
@@ -61,7 +65,7 @@
                         <img src="../img/bj-2.png" alt="" class="bj-2">
                         <img src="../img/bj-3.png" alt="" class="bj-3">
                         <img src="../img/bj-4.png" alt="" class="bj-4">
-                        <div id="echarts_1" class="charts"></div>
+                        <div id="echarts_1" class="charts" style="color: white"></div>
                     </div>
                 </div>
                 <div class="con-center fl">

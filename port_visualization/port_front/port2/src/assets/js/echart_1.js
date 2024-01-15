@@ -44,7 +44,7 @@ export default async function echart1(containerId){
       console.error(`Chart container with id ${containerId} not found.`);  
       return null;  
     }  
-    const chart1 = echarts.init(chartContainer);  
+    const chart1 = echarts.init(chartContainer,);  
     chart1.setOption( {
     tooltip: {
         trigger: 'item'
@@ -53,33 +53,48 @@ export default async function echart1(containerId){
     legend: {
         top: '5%',
         left: 'center',
+        // show: false,
+        testStyle:{
+            color:'#FFFFFF'
+        },
+        // label: {
+        //     show: false,
+        //     color: '#FFFFFF' // 这里设置文字颜色为白色
+        // },
         // doesn't perfectly work with our tricks, disable it
-        selectedMode: false
+        // selectedMode: false
     },
     series: [
         {
-            name: 'Access From',
+            name: '流量分段',
             type: 'pie',
             radius: ['40%', '70%'],
             center: ['50%', '50%'],
             // adjust the start angle
             roseType: {
-                radius: '50%'
+                radius: '20%'
             },
             startAngle: 0,
             label: {
-                show: true
+                show: true,
+                 color: '#FFFFFF' // 这里设置文字颜色为白色
             },
             data: [
-                { value: grade[0].value, name: grade[0].name },
-                { value: grade[1].value, name: grade[1].name },
-                { value: grade[2].value, name: grade[2].name },
-                { value: grade[3].value, name: grade[3].name },
-                { value: grade[4].value, name: grade[4].name },
-                { value: grade[5].value, name: grade[5].name },
+                { value: grade[0].value/grade[5].value, name: grade[0].name },
+                { value: grade[1].value/grade[5].value, name: grade[1].name },
+                { value: grade[2].value/grade[5].value, name: grade[2].name },
+                { value: grade[3].value/grade[5].value, name: grade[3].name },
+                { value: grade[4].value/grade[5].value, name: grade[4].name },
+                { value: grade[5].value/grade[5].value, name: grade[5].name },
+                // { value: grade[0].value/grade[5].value},
+                // { value: grade[1].value/grade[5].value},
+                // { value: grade[2].value/grade[5].value},
+                // { value: grade[3].value/grade[5].value},
+                // { value: grade[4].value/grade[5].value},
+                // { value: grade[5].value/grade[5].value},
                 {
                 // make an record to fill the bottom 50%
-                    value: (grade[0].value+grade[1].value+grade[2].value+grade[3].value+grade[4].value+grade[5].value),
+                    value: (grade[0].value+grade[1].value+grade[2].value+grade[3].value+grade[4].value+grade[5].value)/grade[5].value,
                     itemStyle: {
                         // stop the chart from rendering this piece
                         color: 'none',
@@ -88,7 +103,8 @@ export default async function echart1(containerId){
                         }
                     },
                     label: {
-                        show: false
+                        show: true,
+                        color: '#FFFFFF' // 这里设置文字颜色为白色
                     }
                 }
             ]

@@ -44,7 +44,8 @@ export default async function echart3(containerId){
             fontSize: 14
           },
           labelLine: {
-            show: false
+            show: false,
+            color: '#FFFFFF' // 这里设置文字颜色为白色
           },
           data: [
             { value: bohai, name: null },

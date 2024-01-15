@@ -85,8 +85,9 @@
     margin-top: 40px;
 }
 .data>.data-content>.con-left>.left-top>.info>.info-main .info-img{
-    width: 100px;
-    height: 60px;
+    margin-top: 1px;
+    width: 97px;
+    height: 62px;
     position: relative;
 }
 .data>.data-content>.con-left>.left-top>.info>.info-main .info-img>img{
