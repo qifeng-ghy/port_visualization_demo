@@ -153,6 +153,51 @@ app.get('/nanhai', (req, res) => {
     });
 });
 
+
+//（6）获取港口货物信息（新增）
+app.get('/getGoods', (req, res) => {
+    const location = req.query.portName;
+    console.log(req.query);
+    connection.query('SELECT * FROM t_port_goods WHERE t_name = ?', [location], (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).send(err);
+        }
+        results = results.map(item => camelCaseKeys(item));
+        // console.log(results);
+        return res.json(results);
+    });
+});
+
+//（7）根据港口所在区域返回所有符合条件的港口（新增）
+app.get('/getPortByLoc', (req, res) => {
+    const location = req.query.portLocation;
+    // console.log(req.query);
+    connection.query('SELECT * FROM t_port WHERE t_localtion = ?', [location], (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).send(err);
+        }
+        results = results.map(item => camelCaseKeys(item));
+        // if (!Array.isArray(results)) {
+        //     return res.status(500).send("Query didn't return an array");
+        // }console.log(results);
+        // console.log(res.json(results));
+        // return res.json(results);
+        // const jsonArray = results.map(result => {
+        //     return {
+        //         portName: result.tName,
+        //         tAmount: result.tAmount,
+        //         // Add more properties as needed
+        //     };
+        // });
+        return res.json(results);
+    });
+});
+
+
+
+
 // 启动服务器监听端口3000（可以根据需要更改）  
 app.listen(PORT, () => {
     console.log('Server is running on port 3000');

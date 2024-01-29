@@ -44,32 +44,36 @@ export default async function echart1(containerId){
       console.error(`Chart container with id ${containerId} not found.`);  
       return null;  
     }  
-    const chart1 = echarts.init(chartContainer,);  
+    const chart1 = echarts.init(chartContainer);  
     chart1.setOption( {
     tooltip: {
         trigger: 'item'
     },
     color:['rgb(248, 69, 241)','rgb(173, 70, 243)','rgb(80, 69, 246)','rgb(71, 119, 245)','rgb(68, 175, 240)','#7efc52'],
+    // legend: {
+    //     // top: '5%',
+    //     left: 'center',
+    //     // show: false,
+    //     // data: this.data.name,
+    //     // data: ['', '车型二', '车型三', '车型四', '车型五'],
+    //     data:['3600以上','3000-3600','2400-3000','1800-2400','1200-1800','600-1200','0-600'],
+    //     testStyle:{
+    //         color:'#FFFFFF'
+    //     },
+    // },
     legend: {
-        top: '5%',
-        left: 'center',
-        // show: false,
-        testStyle:{
-            color:'#FFFFFF'
-        },
-        // label: {
-        //     show: false,
-        //     color: '#FFFFFF' // 这里设置文字颜色为白色
-        // },
-        // doesn't perfectly work with our tricks, disable it
-        // selectedMode: false
-    },
+        // data: this.legend,
+        left:'center',
+        textStyle:{
+          color:'#ffffff',
+        }
+      },
     series: [
         {
             name: '流量分段',
             type: 'pie',
             radius: ['40%', '70%'],
-            center: ['50%', '50%'],
+            center: ['50%', '30%'],
             // adjust the start angle
             roseType: {
                 radius: '20%'
@@ -104,7 +108,10 @@ export default async function echart1(containerId){
                     },
                     label: {
                         show: true,
-                        color: '#FFFFFF' // 这里设置文字颜色为白色
+                        testStyle:{
+                            color: '#FFFFFF' // 这里设置文字颜色为白色
+                        }
+
                     }
                 }
             ]

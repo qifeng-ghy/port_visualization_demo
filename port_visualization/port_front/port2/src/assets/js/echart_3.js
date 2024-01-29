@@ -30,9 +30,13 @@ export default async function echart3(containerId){
         // }  
       },
       legend: {
-        data: ['黄海', '东海', '南海', '渤海', '内陆']
+        data: ['黄海', '东海', '南海', '渤海', '内陆'],
+        left:'center',
+        textStyle:{
+          color:'#ffffff',
+        }
       },
-      color:['#ec4df8','#19edfd','#73ee4a','#8772ff','#fff975'],
+      color:['#ec4df8','#19edfd','#73ee4a','#8772ff','#4777F5'],
       series: [
         {
           name: '港口区域统计',

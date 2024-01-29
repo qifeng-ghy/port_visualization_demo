@@ -10,8 +10,6 @@ export default async function centerMap(containerId,portName,portLoc,portAmount,
       return null;  
     }  
     const chart = echarts.init(chartContainer,chalk);  
-    // const chart = echarts.init(chartContainer);  
-    // var myChart = echarts.init(document.getElementById('main'),'chalk');
     var data = [//绘制起点到终点的流线
         // 例 {name: '广州', value: '北京'},
          {name:'厦门',value:null},
@@ -296,127 +294,322 @@ export default async function centerMap(containerId,portName,portLoc,portAmount,
     return res;
     };
     //根据data得到放射光标效果图。如果起始城市没有值的话，就只显示目的城市
+    var province= [
+        { name: '北京', value: 0 },
+        { name: '天津', value: 200 },
+        { name: '上海', value: 600 },
+        { name: '重庆', value: 4 },
+        { name: '河北', value: 5 },
+        { name: '河南', value: 6 },
+        { name: '云南', value: 7 },
+        { name: '辽宁', value: 8 },
+        { name: '黑龙江', value: 9 },
+        { name: '湖南', value: 10 },
+        { name: '安徽', value: 11 },
+        { name: '山东', value: 12 },
+        { name: '新疆', value: 134 },
+        { name: '江苏', value: 14 },
+        { name: '浙江', value: 151 },
+        { name: '江西', value: 16 },
+        { name: '湖北', value: 17 },
+        { name: '广西', value: 18 },
+        { name: '甘肃', value: 192 },
+        { name: '山西', value: 20 },
+        { name: '内蒙古', value: 21 },
+        { name: '陕西', value: 22 },
+        { name: '吉林', value: 23 },
+        { name: '福建', value: 242 },
+        { name: '贵州', value: 25 },
+        { name: '广东', value: 26 },
+        { name: '青海', value: 273 },
+        { name: '西藏', value: 28 },
+        { name: '四川', value: 29 },
+        { name: '宁夏', value: 30 },
+        { name: '海南', value: 31 },
+        { name: '台湾', value: 32 },
+        { name: '香港', value: 33 },
+        { name: '澳门', value: 34 }
+    ] //各省地图颜色数据依赖value
+
     var convertData1 = function (data) {
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        var geoCoord1 = geoCoordMap[data[i].value];
-        if (geoCoord) 
-        {
-            res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-            });
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            var geoCoord1 = geoCoordMap[data[i].value];
+            if (geoCoord) 
+            {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
+            if(geoCoord1)
+            {
+                res.push({
+                    name: data[i].value,
+                    value: geoCoord1.concat(data[i].name)
+                })
+            }
         }
-        if(geoCoord1)
-        {
-            res.push({
-                name: data[i].value,
-                value: geoCoord1.concat(data[i].name)
-            })
-        }
-    }
-    return res;
+        return res;
     };
     
     //设置一些可选的参数
-    chart.setOption( {
-    //设置背景颜色
-    // backgroundColor: '#f3f3f3',
-    //设置图片标题、子标题、文本颜色等等
-    // title: {
-    //     text: 'echarts使用1',
-    //     subtext: 'made by 刘冲',
-    //     left: 'center',
-    //     textStyle: {
-    //         color: '#000'
+    // chart.setOption( {
+    //     // visualMap: {
+    //     //     show: false,
+    //     //     min: 0,
+    //     //     max: 600,
+    //     //     left: 'left',
+    //     //     top: 'bottom',
+    //     //     text: ['高', '低'], // 文本，默认为数值文本
+    //     //     calculable: true,
+    //     //     seriesIndex: [1],
+    //     //     inRange: {
+    //     //         color: ['#22e5e8', '#0035f9','#22e5e8'] // 蓝绿
+
+    //     //     }
+    //     // },
+
+
+    // tooltip : {
+    //     trigger: 'item'
+    // },
+
+    // geo: {
+    //     map: 'china',
+    //     label: {
+    //         emphasis: {
+    //             show: true
+    //         }
+    //     },
+    //     //是否可以点击鼠标、滚轮缩放
+    //     roam: true,
+    //     itemStyle: {
+    //         normal: {//未选中
+    //           	// areaColor: 'rgb(135, 247, 207)',
+    //             borderWidth: 0.2, //设置外层边框
+    //             borderColor:'black',
+    //         },
+    //         emphasis: { // 选中
+    //             areaColor: '#49FFE9',
+    //             // shadowColor: 'rgba(0,0,0,0.2)',
+    //             shadowOffsetX: 0, // 阴影水平方向上的偏移距离
+    //             shadowOffsetY: 4, // 阴影垂直方向上的偏移距离
+    //             shadowBlur: 8, // 图形阴影的模糊大小。
+    //             label: {
+    //               show: true,
+    //               textStyle: {
+    //                 color: '#fff'
+    //               }
+    //             }
+    //         }
     //     }
     // },
-    tooltip : {
-        trigger: 'item'
-    },
+    // //series就是要绘制的地图的主体。是一个数组，也就是说可以有多个数据进行绘制。这里有两个，一个是两个城市的连线，一个是对两个城市进行高亮显示。其中的type是很重要的参数，主要有饼图、条形图、线、地图等等。具体的可以去参考官网上的配置手册。
+    // series : 
+    // [
+    //     {
+    //         type: 'map',
+    //         map: 'china',
+    //         geoIndex: 0,
+    //         aspectScale: 0.75, //长宽比
+    //         showLegendSymbol: false, // 存在legend时显示
+    //         label: {
+    //             normal: {
+    //                 show: true
+    //             },
+    //             emphasis: {
+    //                 show: false,
+    //                 textStyle: {
+    //                     color: '#fff'
+    //                 }
+    //             }
+    //         },
+    //         roam: true,
+    //         itemStyle: {
+    //             normal: {
+    //                 areaColor: '#031525',
+    //                 borderColor: '#3B5077',
+    //             },
+    //             emphasis: {
+    //                 areaColor: '#2B91B7'
+    //             }
+    //         },
+    //         animation: false,
+    //         data: province
+    //     },
 
 
-    geo: {
-        map: 'china',
-        label: {
-            emphasis: {
-                show: true
-            }
+
+    //     {//省份
+    //         name: 'rode',
+    //         type: 'lines',
+    //         coordinateSystem: 'geo',
+    //         data: convertData(data),
+    //         // data:province,
+    //         effect: {
+    //             show: true,
+    //             period: 6,
+    //             trailLength: 0,
+    //         },
+    //         lineStyle: {
+    //             normal: {
+    //                 color:'orange',
+    //                 width: 2,
+    //                 opacity: 0.4,
+    //                 curveness: 0.2
+    //             }
+    //         }
+    //     },
+    //     {//城市
+    //         name: 'city',
+    //         type: 'effectScatter',
+    //         coordinateSystem: 'geo',
+    //         rippleEffect: {
+    //             brushType: 'stroke'
+    //         },
+    //         label: {
+    //             normal: {
+    //                 show: true,
+    //                 position: 'right',
+    //                 formatter: '{b}'
+    //             }
+    //         },
+    //         symbolSize: 8,
+    //         itemStyle: {
+    //             normal: {
+    //                 color:'yellow'
+    //             }
+    //         },
+    //         data: convertData1(data)
+    //     },
+    // ]
+    // });
+    // 使用刚指定的配置项和数据显示图表。
+    chart.setOption({
+        tooltip: {
+            trigger: 'item'
         },
-        //是否可以点击鼠标、滚轮缩放
-        roam: true,
-        // bolder_color:'red',
-        itemStyle: {
-            normal: {//未选中
-              	areaColor: 'rgb(26, 189, 236)',
-                borderWidth: 0.2, //设置外层边框
-                borderColor:'black',
-            },
-            emphasis: { // 选中
-                areaColor: '#49FFE9',
-                shadowColor: 'rgba(0,0,0,0.2)',
-                shadowOffsetX: 0, // 阴影水平方向上的偏移距离
-                shadowOffsetY: 4, // 阴影垂直方向上的偏移距离
-                shadowBlur: 8, // 图形阴影的模糊大小。
-                label: {
-                  show: true,
-                  textStyle: {
-                    color: '#fff'
-                  }
-                }
-            }
-        }
-    },
-    //series就是要绘制的地图的主体。是一个数组，也就是说可以有多个数据进行绘制。这里有两个，一个是两个城市的连线，一个是对两个城市进行高亮显示。其中的type是很重要的参数，主要有饼图、条形图、线、地图等等。具体的可以去参考官网上的配置手册。
-    series : 
-    [
-        {
-            name: 'rode',
-            type: 'lines',
-            coordinateSystem: 'geo',
-            data: convertData(data),
-            effect: {
-                show: true,
-                period: 6,
-                trailLength: 0,
-            },
-            lineStyle: {
-                normal: {
-                    color:'orange',
-                    width: 2,
-                    opacity: 0.4,
-                    curveness: 0.2
-                }
-            }
-        },
-        {
-            name: 'city',
-            type: 'effectScatter',
-            coordinateSystem: 'geo',
-            rippleEffect: {
-                brushType: 'stroke'
-            },
+        geo: {
+            map: 'china',
             label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    formatter: '{b}'
-                    // formatter:'{a}'
+                emphasis: {
+                    show: true
                 }
             },
-            symbolSize: 8,
+            roam: true,
             itemStyle: {
                 normal: {
-                    // color: '#389BB7'
-                    color:'yellow'
+                    borderWidth: 0.2,
+                    borderColor: 'black',
+                },
+                emphasis: {
+                    areaColor: '#49FFE9',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 4,
+                    shadowBlur: 8,
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        },
+        visualMap: {  // 添加 visualMap 组件
+            show:false,
+            min: 0,  // 设置最小值
+            max: 60,  // 设置最大值
+            text: ['High', 'Low'],  // 文本显示
+            realtime: false,  // 是否实时更新
+            calculable: true,  // 是否支持拖拽
+            inRange: {  // 定义颜色范围
+                color: ['#22e5e8', '#0035f9']  // 设置颜色范围，这里用浅蓝到深蓝
+            },
+            seriesIndex: 0
+        },
+        series: [
+            {
+                type: 'map',
+                map: 'china',
+                geoIndex: 0,
+                aspectScale: 0.75,
+                showLegendSymbol: false,
+                label: {
+                    normal: {
+                        show: true
+                    },
+                    emphasis: {
+                        show: false,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                roam: true,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#031525',
+                        borderColor: '#3B5077',
+                    },
+                    emphasis: {
+                        areaColor: '#2B91B7'
+                    }
+                },
+                animation: false,
+                data: province
+            },
+            {
+                name: 'rode',
+                type: 'lines',
+                coordinateSystem: 'geo',
+                data: convertData(data),
+                effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0,
+                },
+                lineStyle: {
+                    normal: {
+                        color: 'orange',
+                        width: 2,
+                        opacity: 0.4,
+                        curveness: 0.2
+                    }
                 }
             },
-            data: convertData1(data)
-        },
-    ]
+            {
+                name: '港口',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                rippleEffect: {
+                    brushType: 'stroke'
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}'
+                    }
+                },
+                symbolSize: 8,
+                // 直接在这里设置 itemStyle 来定义颜色
+                itemStyle: {
+                    normal: {
+                        color: 'yellow'
+                    }
+                },
+                data: convertData1(data)
+            },
+        ]
     });
-    // 使用刚指定的配置项和数据显示图表。
+    
+
+
+
+
 
     chart.on('mouseover',async function (params) {  
         var name=null;

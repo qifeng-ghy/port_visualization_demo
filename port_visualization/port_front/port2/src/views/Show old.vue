@@ -10,13 +10,13 @@
                 <div class="con-left fl">
                     <div class="left-top">
                         <div class="info">
-                            <div class="info-title">港口属性对比</div>
+                            <div class="info-title">港口属性</div>
                             <img src="../img/bj-1.png" alt="" class="bj-1">
                             <img src="../img/bj-2.png" alt="" class="bj-2">
                             <img src="../img/bj-3.png" alt="" class="bj-3">
                             <img src="../img/bj-4.png" alt="" class="bj-4">
                             <div class="info-main">
-                                <!-- <div id="portName2" style="color: white;"></div>
+                                <!-- <div id="portName" style="color: white;"></div>
                                 <div id="portLoc"></div>
                                 <div id="portAmount"></div>
                                 <div id="portBalance"></div> -->
@@ -25,7 +25,8 @@
                                         <img src="../img/港口1.png" alt="">
                                     </div>
                                     <div class="info-text fl">
-                                        <div id="portName2"></div>
+                                        <!-- <div id="portName1">港口名称:</div><br> -->
+                                        <div id="portName"></div>
                                     </div>
                                 </div>
                                 <div class="info-2">
@@ -33,6 +34,7 @@
                                         <img src="../img/港口2.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portLoc1">港口位置:</div><br> -->
                                         <div id="portLoc"></div>
                                     </div>
                                 </div>
@@ -41,6 +43,7 @@
                                         <img src="../img/港口3.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portAmount1">港口数量：</div><br> -->
                                         <div id="portAmount"></div>
                                     </div>
                                 </div>
@@ -49,16 +52,15 @@
                                         <img src="../img/港口4.png" alt="">
                                     </div>
                                     <div class="info-text fl">
+                                        <!-- <div id="portBalance1">港口流入流出差值：</div><br> -->
                                         <div id="portBalance"></div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div id="echarts_show" class="charts" style="color: white"></div> -->
                         </div>
                     </div>
                     <div class="left-bottom">
-                        <div class="title">港口货运信息</div>
-                        <div id="portName" style="height: 5px;margin-left: 15px;"></div>
+                        <div class="title">港口流量分段</div>
                         <img src="../img/bj-1.png" alt="" class="bj-1">
                         <img src="../img/bj-2.png" alt="" class="bj-2">
                         <img src="../img/bj-3.png" alt="" class="bj-3">
@@ -73,7 +75,7 @@
                 </div>
                 <div class="con-right fr">
                     <div class="right-top">
-                        <div class="title">港口属性对比</div>
+                        <div class="title">港口流量TOP5</div>
                         <img src="../img/bj-1.png" alt="" class="bj-1">
                         <img src="../img/bj-2.png" alt="" class="bj-2">
                         <img src="../img/bj-3.png" alt="" class="bj-3">
@@ -81,7 +83,7 @@
                         <div id="echarts_2" class="charts"></div>
                     </div>
                     <div class="right-bottom">
-                        <div class="title">港口地区分布</div>
+                        <div class="title">港口类型数量对比</div>
                         <img src="../img/bj-1.png" alt="" class="bj-1">
                         <img src="../img/bj-2.png" alt="" class="bj-2">
                         <img src="../img/bj-3.png" alt="" class="bj-3">
@@ -112,8 +114,6 @@ import centerMap from '@/assets/js/echartmap'
 import chart1 from '@/assets/js/echart_1'
 import chart2 from '@/assets/js/echart_2'
 import chart3 from '@/assets/js/echart_3'
-import chartTest from '@/assets/js/chart1.js'
-import radar from '@/assets/js/radar.js';
 // import jquery from 'jquery';、
 
 
@@ -129,10 +129,6 @@ export default {
       chart_map:'',
       charttest:'',
       radartest:''
-    //   point1:{
-    //     portName:'',
-    //     port
-    //   }
     }
 
   },
@@ -140,9 +136,7 @@ export default {
 
   },
   mounted(){
-    // this.chart_map=centerMap('echarts_map','portName','portLoc','portAmount','portBalance');
     this.chart_1=chart1('echarts_1');
-    // this.chart_2=chart2('echarts_2');
     this.chart_3=chart3('echarts_3');
     this.charttest=chartTest('echarts_map','echarts_2','echarts_1','portName','portName2','portLoc','portAmount','portBalance');
     this.radartest=radar('echarts_2');
