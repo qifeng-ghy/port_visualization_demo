@@ -1,0 +1,19 @@
+数据库名：portdata
+
+全国港口数值表:(t_port)
+1. t_id  int  主键 非空  无实意
+2. t_name varchar  非空  港口名称
+3. t_type int 非空 港口类型（0{港口},1{停泊区}）
+4. t_localtion varchar 非空 港口所在区域（内陆、渤海、黄海、东海、南海）
+5. t_amount  int 非空 港口流量
+6. t_balance int 非空  港口流量差值
+7. t_citygdp int 非空 港口所在城市的GDP值  
+8. t_grow  int 非空 港口所在城市的人口增长率  
+
+
+货物流通表(t_port_goods)
+1.g_id  int 主键  非空  无实意
+2.g_name varchar  非空  货物名称
+3.g_value int 非空  货物价值
+4.t_name varchar  非空  港口名称
+
