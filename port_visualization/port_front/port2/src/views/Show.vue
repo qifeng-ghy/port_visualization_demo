@@ -10,7 +10,7 @@
                 <div class="con-left fl">
                     <div class="left-top">
                         <div class="info">
-                            <div class="info-title">港口属性</div>
+                            <div class="info-title">港口属性展示</div>
                             <img src="../img/bj-1.png" alt="" class="bj-1">
                             <img src="../img/bj-2.png" alt="" class="bj-2">
                             <img src="../img/bj-3.png" alt="" class="bj-3">
